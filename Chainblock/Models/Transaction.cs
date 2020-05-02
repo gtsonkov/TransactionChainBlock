@@ -1,19 +1,42 @@
-﻿using Chainblock.Contracts;
+﻿using Chainblock.Common;
+using Chainblock.Contracts;
 using System;
 
 namespace Chainblock.Models
 {
     public class Transaction : ITransaction
     {
+        private const int MIN_ID_VALUE = 0;
+        
+        private int id;
+        private string from;
+        private string to;
+        private string sequreString;
+        private TransactionStatus ts;
+
+        public Transaction(int id, string from, string to, string sequreString, TransactionStatus ts)
+        {
+            this.id = id;
+            this.from = from;
+            this.to = to;
+            this.sequreString = sequreString;
+            this.ts = ts;
+        }
+
         public int Id 
         {
             get
             {
-                throw new NotImplementedException();
+                return this.id;
             }
             set
             {
-                throw new NotImplementedException();
+                if (value <= MIN_ID_VALUE)
+                {
+                    throw new ArgumentException(ExceptionMessages.InvalidIDMessage);
+                }
+
+                this.id = value;
             } 
         }
 
@@ -33,11 +56,16 @@ namespace Chainblock.Models
         {
             get
             {
-                throw new NotImplementedException();
+                return this.from;
             }
             set
             {
-                throw new NotImplementedException();
+                if (String.IsNullOrWhiteSpace(value) || value == string.Empty)
+                {
+                    throw new ArgumentException(ExceptionMessages.InvalidSenderUsernameMessage);
+                }
+
+                this.from = value;
             }
         }
 
@@ -45,11 +73,16 @@ namespace Chainblock.Models
         {
             get
             {
-                throw new NotImplementedException();
+                return this.to;
             }
             set
             {
-                throw new NotImplementedException();
+                if (String.IsNullOrWhiteSpace(value) || value == string.Empty)
+                {
+                    throw new ArgumentException(ExceptionMessages.InvalidSenderUsernameMessage);
+                }
+
+                this.to = value;
             }
         }
 
