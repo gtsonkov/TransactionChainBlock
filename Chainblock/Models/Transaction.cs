@@ -7,7 +7,7 @@ namespace Chainblock.Models
     public class Transaction : ITransaction
     {
         private const int MIN_ID_VALUE = 0;
-        
+
         private int id;
         private string from;
         private string to;
@@ -16,19 +16,20 @@ namespace Chainblock.Models
 
         public Transaction(int id, string from, string to, string sequreString, TransactionStatus ts)
         {
-            this.id = id;
-            this.from = from;
-            this.to = to;
-            this.sequreString = sequreString;
-            this.ts = ts;
+            this.Id = id;
+            this.From = from;
+            this.To = to;
+            this.SequreString = sequreString;
+            this.Status = ts;
         }
 
-        public int Id 
+        public int Id
         {
             get
             {
                 return this.id;
             }
+
             set
             {
                 if (value <= MIN_ID_VALUE)
@@ -37,18 +38,19 @@ namespace Chainblock.Models
                 }
 
                 this.id = value;
-            } 
+            }
         }
 
         public TransactionStatus Status
         {
             get
             {
-                throw new NotImplementedException();
+                return this.ts;
             }
+
             set
             {
-                throw new NotImplementedException();
+                this.ts = value;
             }
         }
 
@@ -62,7 +64,7 @@ namespace Chainblock.Models
             {
                 if (String.IsNullOrWhiteSpace(value) || value == string.Empty)
                 {
-                    throw new ArgumentException(ExceptionMessages.InvalidSenderUsernameMessage);
+                    throw new ArgumentException(ExceptionMessages.InvalidSenderRecieverUsernameMessage);
                 }
 
                 this.from = value;
@@ -75,11 +77,12 @@ namespace Chainblock.Models
             {
                 return this.to;
             }
+
             set
             {
                 if (String.IsNullOrWhiteSpace(value) || value == string.Empty)
                 {
-                    throw new ArgumentException(ExceptionMessages.InvalidSenderUsernameMessage);
+                    throw new ArgumentException(ExceptionMessages.InvalidSenderRecieverUsernameMessage);
                 }
 
                 this.to = value;
@@ -90,11 +93,17 @@ namespace Chainblock.Models
         {
             get
             {
-                throw new NotImplementedException();
+                return this.sequreString;
             }
+
             set
             {
-                throw new NotImplementedException();
+                if (value.Length != 48 && value.Length != 52 && value.Length != 64)
+                {
+                    throw new ArgumentException(ExceptionMessages.InvalidSequreStringLenght);
+                }
+
+                this.sequreString = value;
             }
         }
     }
