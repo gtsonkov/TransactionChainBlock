@@ -7,5 +7,7 @@
         public static string InvalidSenderRecieverUsernameMessage = "Sender/Receiver name can not be empty, null or whitespace string!";
 
         public static string InvalidSequreStringLenght = "Invalid sequre string lenght!";
+
+        public static string TransactionCanNotBeNull = "Null Transaction can not be added!";
     }
 }

@@ -1,4 +1,5 @@
-﻿using Chainblock.Contracts;
+﻿using Chainblock.Common;
+using Chainblock.Contracts;
 using Chainblock.Models;
 using NUnit.Framework;
 
@@ -26,6 +27,22 @@ namespace Chainblock.Tests
 
             Assert.AreEqual(expectedCount,testChainblock.Count);
             Assert.IsTrue(testChainblock.Contains(testTarnsaction));
+        }
+
+        [Test]
+        public void TestTryingToAddNullTransactionShoudThrowException()
+        {
+            this.testChainblock = new ChainBlock();
+
+            Assert.That(() =>
+            {
+                this.testChainblock.Add(null);
+            }
+            , Throws
+            .ArgumentException
+            .With
+            .Message
+            .EqualTo(ExceptionMessages.TransactionCanNotBeNull));
         }
     }
 }
