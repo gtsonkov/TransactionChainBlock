@@ -64,6 +64,29 @@ namespace Chainblock.Tests
             Assert.AreEqual(expectedCount, this.testChainblock.Count);
         }
 
+        [Test]
+        public void TetsTryingToAddInvalidDataShoudNotAffectCount()
+        {
+            CreateTestChainblock();
+
+            int expectedCount = 5;
+            Assert.AreEqual(expectedCount, this.testChainblock.Count);
+
+            Assert.That(() =>
+            {
+                this.testChainblock.Add(null);
+            }
+            , Throws
+            .ArgumentException
+            .With
+            .Message
+            .EqualTo(ExceptionMessages.TransactionCanNotBeNull));
+
+            expectedCount = 5; //Count shoud be still the same!
+
+            Assert.AreEqual(expectedCount, this.testChainblock.Count);
+        }
+
         private void CreateTestChainBlock()
         {
             this.testChainblock = new ChainBlock();
