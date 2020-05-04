@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Chainblock.Models
 {
-    public class Chainblock : IChainblock
+    public class ChainBlock : IChainblock
     {
         public int Count => throw new NotImplementedException();
 
